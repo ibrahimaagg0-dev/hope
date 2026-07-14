@@ -12,7 +12,7 @@
         .nav-btn { padding: 12px 25px; background: #e91e63; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; margin: 5px; }
         .slide { display: none; margin-bottom: 20px; }
         img { width: 100%; border-radius: 20px; border: 3px solid #e91e63; box-shadow: 0 0 15px #e91e63; }
-        .counter { font-size: 0.9em; color: #f8bbd0; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; margin: 15px 0; }
+        .counter { font-size: 1em; color: #f8bbd0; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; margin: 15px 0; line-height: 1.8; }
         .special-note { font-size: 1.5em; color: #f8bbd0; margin: 15px 0; font-weight: bold; }
         .heart-message { font-size: 1em; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; line-height: 1.6; }
         .whatsapp-btn { display: inline-block; margin-top: 15px; padding: 12px 20px; background-color: #25d366; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 0.9em; }
@@ -33,7 +33,6 @@
     <div class="counter" id="date-counter"></div>
 
     <div id="slide-container">
-        <!-- الترتيب الجديد -->
         <div class="slide" style="display:block;"><img src="together_small.jpg"><p>حكايتنا واحنا صغيرين</p></div>
         <div class="slide"><img src="her_big1.jpg"><p>أمل.. أجمل شيء في حياتي</p></div>
         <div class="slide"><img src="me_big1.jpg"><p>إبراهيم.. أسير حبك</p></div>
@@ -85,12 +84,22 @@
         slides[currentSlide].style.display = "block";
     }
     function updateCounter() {
-        const start = new Date("2021-06-13T00:00:00"); const now = new Date();
-        const diff = now - start;
-        const y = Math.floor(diff / (31536000000));
-        const m = Math.floor((diff % 31536000000) / 2592000000);
-        const d = Math.floor((diff % 2592000000) / 86400000);
-        document.getElementById("date-counter").innerHTML = `عشنا سوا: ${y} سنة، ${m} شهر، ${d} يوم`;
+        const start = new Date("2021-06-13T00:00:00"); 
+        const now = new Date();
+        let diff = now - start;
+        
+        const y = Math.floor(diff / 31536000000);
+        diff %= 31536000000;
+        const m = Math.floor(diff / 2592000000);
+        diff %= 2592000000;
+        const d = Math.floor(diff / 86400000);
+        diff %= 86400000;
+        const h = Math.floor(diff / 3600000);
+        diff %= 3600000;
+        const min = Math.floor(diff / 60000);
+        const sec = Math.floor((diff % 60000) / 1000);
+        
+        document.getElementById("date-counter").innerHTML = `عشنا سوا: ${y} سنة، ${m} شهر، ${d} يوم<br>${h} ساعة، ${min} دقيقة، و${sec} ثانية`;
     }
 </script>
 </body>
