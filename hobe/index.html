@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>حكايتنا الخاصة</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #fce4ec 0%, #000000 100%); color: #ffffff; text-align: center; margin: 0; padding: 20px; min-height: 100vh; overflow-x: hidden; }
+        #auth-overlay { position: fixed; inset: 0; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; }
+        #content { display: none; position: relative; z-index: 50; max-width: 600px; margin: auto; }
+        input { padding: 12px; border: 2px solid #f8bbd0; border-radius: 8px; width: 220px; text-align: center; background: #333; color: white; }
+        .nav-btn { padding: 15px 30px; cursor: pointer; background: #e91e63; color: white; border: none; border-radius: 8px; margin: 10px; font-weight: bold; }
+        .slide { display: none; padding: 20px; }
+        img { width: 100%; max-width: 300px; border-radius: 15px; border: 4px solid #f8bbd0; box-shadow: 0 0 20px #f8bbd0; }
+        .text { font-size: 1.6em; margin: 20px 0; font-weight: bold; color: #fce4ec; text-shadow: 2px 2px 4px #000; }
+        .counter { font-size: 1.2em; color: #f8bbd0; margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid #e91e63; border-radius: 10px; }
+        .heart-message { margin-top: 40px; font-size: 1.3em; color: #fff; background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; line-height: 2; }
+        .whatsapp-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background-color: #25d366; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; }
+        .element { position: fixed; top: -50px; font-size: 25px; animation: fall linear infinite; pointer-events: none; z-index: 1; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="auth-overlay">
+    <h2 style="color: #f8bbd0;">أهلاً بكِ.. تفضلي بالدخول</h2>
+    <input type="password" id="password" placeholder="الرمز السري">
+    <button class="nav-btn" onclick="checkPassword()">فتح الذكريات</button>
+</div>
+
+<div id="content">
+    <h2 id="dynamic-text" style="color: #f8bbd0; border-bottom: 2px solid #e91e63; padding-bottom: 10px;">إلى شريكة عمري.. أمل ❤️</h2>
+    <div class="counter" id="date-counter"></div>
+
+    <div id="slide-container">
+        <div class="slide" style="display:block;"><img src="together_small.jpg"><p class="text">بداية الحكاية.. حب الطفولة</p></div>
+        <div class="slide"><img src="her_big1.jpg"><p class="text">أمل.. أجمل شيء في حياتي</p></div>
+        <div class="slide"><img src="me_big1.jpg"><p class="text">إبراهيم.. اللي بقى أسير حبك</p></div>
+        <div class="slide"><img src="photo4.jpg"><p class="text">كل يوم بحبك فيه أكتر</p></div>
+        <div class="slide"><img src="me_big2.jpg"><p class="text">مكسب عمري إني لقيتك</p></div>
+        <div class="slide"><img src="together_big.jpg"><p class="text">حاضرنا سوا.. للأبد</p></div>
+    </div>
+    
+    <button class="nav-btn" onclick="changeSlide(-1)">السابق</button>
+    <button class="nav-btn" onclick="changeSlide(1)">التالي</button>
+
+    <div class="heart-message">
+        <p>أمل يا حبيبة العمر، أكتب لكِ هذه الكلمات لتكون مرجعاً لقلوبنا في كل لحظة ضيق. مهما عصفت بنا الأيام، تذكري دائماً أننا بدأنا كحب طفولة بريء، وأننا نكبر سوياً لنبني حياة أجمل. عندما تفتحي هذا الموقع ونحن في خلاف، تذكري ضحكتنا، وتذكري أنني دائماً بانتظارك لنعود أفضل مما كنا، لأننا ببساطة "روح واحدة في جسدين".</p>
+        <a href="https://wa.me/201020526886?text=بحبك يا إبراهيم، خلينا نرجع أحسن من الأول ❤️" class="whatsapp-btn" target="_blank">بحبك يا إبراهيم.. خلينا نرجع أحسن ❤️</a>
+    </div>
+</div>
+
+<audio id="myAudio" loop><source src="my_song.mp3" type="audio/mpeg"></audio>
+
+<script>
+    function checkPassword() {
+        if (document.getElementById("password").value === "1362021") {
+            document.getElementById("auth-overlay").style.display = "none";
+            document.getElementById("content").style.display = "block";
+            document.getElementById("myAudio").play();
+            updateCounter();
+            setInterval(updateCounter, 1000);
+            startEffects();
+        } else { alert("الرمز غير صحيح"); }
+    }
+    function startEffects() {
+        setInterval(() => {
+            const el = document.createElement("div");
+            el.innerHTML = Math.random() > 0.5 ? "❤" : "🌸";
+            el.className = "element";
+            el.style.left = Math.random() * 100 + "vw";
+            el.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 10000);
+        }, 500);
+        const msgs = ["إلى شريكة عمري.. أمل ❤️", "كل سنة وأنتِ معي يا أجمل أمل ✨", "أحلى أيام عمري هي معكِ 🌹", "حبنا أقوى من أي خلاف.. دمتِ لي ❤️"];
+        let i = 0;
+        setInterval(() => { document.getElementById("dynamic-text").innerText = msgs[i]; i = (i + 1) % msgs.length; }, 4000);
+    }
+    let currentSlide = 0;
+    function changeSlide(n) {
+        let slides = document.getElementsByClassName("slide");
+        slides[currentSlide].style.display = "none";
+        currentSlide = (currentSlide + n + slides.length) % slides.length;
+        slides[currentSlide].style.display = "block";
+    }
+    function updateCounter() {
+        const start = new Date("2021-06-13T00:00:00");
+        const now = new Date();
+        let y = now.getFullYear() - start.getFullYear();
+        let m = now.getMonth() - start.getMonth();
+        let d = now.getDate() - start.getDate();
+        if (d < 0) { m--; d += 30; }
+        if (m < 0) { y--; m += 12; }
+        const h = now.getHours() - start.getHours() < 0 ? now.getHours() + 24 - start.getHours() : now.getHours() - start.getHours();
+        const min = now.getMinutes(), sec = now.getSeconds();
+        document.getElementById("date-counter").innerHTML = `عشنا سوا: ${y} سنة، ${m} شهر، ${d} يوم<br>${h} ساعة، ${min} دقيقة، و${sec} ثانية`;
+    }
+</script>
+</body>
+</html>
