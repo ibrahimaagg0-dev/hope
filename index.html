@@ -33,9 +33,10 @@
     <div class="counter" id="date-counter"></div>
 
     <div id="slide-container">
-        <div class="slide" style="display:block;"><img src="together_small.jpg"><p>بداية الحكاية.. حب الطفولة</p></div>
+        <!-- الصور المظبوطة -->
+        <div class="slide" style="display:block;"><img src="me_big1.jpg"><p>إبراهيم.. أسير حبك</p></div>
         <div class="slide"><img src="her_big1.jpg"><p>أمل.. أجمل شيء في حياتي</p></div>
-        <div class="slide"><img src="me_big1.jpg"><p>إبراهيم.. اللي بقى أسير حبك</p></div>
+        <div class="slide"><img src="together_big.jpg"><p>حاضرنا سوا.. للأبد</p></div>
     </div>
     
     <button class="nav-btn" onclick="changeSlide(-1)">السابق</button>
@@ -86,8 +87,7 @@
         const y = Math.floor(diff / (31536000000));
         const m = Math.floor((diff % 31536000000) / 2592000000);
         const d = Math.floor((diff % 2592000000) / 86400000);
-        const h = Math.floor((diff % 86400000) / 3600000);
-        document.getElementById("date-counter").innerHTML = `عشنا سوا: ${y} سنة، ${m} شهر، ${d} يوم<br>${h} ساعة ودقائق وثوانٍ`;
+        document.getElementById("date-counter").innerHTML = `عشنا سوا: ${y} سنة، ${m} شهر، ${d} يوم`;
     }
 </script>
 </body>
