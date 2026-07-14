@@ -1,24 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حكايتنا الخاصة</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #000 0%, #33101d 100%); color: #fff; text-align: center; margin: 0; padding: 10px; min-height: 100vh; overflow-x: hidden; }
+        #auth-overlay { position: fixed; inset: 0; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; }
+        #content { display: none; width: 100%; max-width: 400px; margin: auto; padding: 20px; box-sizing: border-box; }
+        input { padding: 15px; border-radius: 10px; border: 2px solid #e91e63; width: 80%; text-align: center; background: #222; color: white; margin-bottom: 10px; }
+        .nav-btn { padding: 12px 25px; background: #e91e63; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; margin: 5px; }
+        .slide { display: none; margin-bottom: 20px; }
+        img { width: 100%; border-radius: 20px; border: 3px solid #e91e63; box-shadow: 0 0 15px #e91e63; }
+        .counter { font-size: 0.9em; color: #f8bbd0; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; margin: 15px 0; }
+        .special-note { font-size: 1.5em; color: #f8bbd0; margin: 15px 0; font-weight: bold; }
+        .heart-message { font-size: 1em; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; line-height: 1.6; }
+        .whatsapp-btn { display: inline-block; margin-top: 15px; padding: 12px 20px; background-color: #25d366; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 0.9em; }
+        .element { position: fixed; top: -50px; font-size: 20px; animation: fall linear infinite; pointer-events: none; z-index: 1; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="auth-overlay">
+    <h2 style="color: #e91e63;">مرحباً بكِ يا أمل ❤️</h2>
+    <input type="password" id="password" placeholder="الرمز السري">
+    <button class="nav-btn" onclick="checkPassword()">فتح الذكريات</button>
+</div>
+
+<div id="content">
+    <div class="special-note" id="dynamic-text">إلى شريكة عمري.. أمل ❤️</div>
+    <div class="counter" id="date-counter"></div>
+
+    <div id="slide-container">
+        <div class="slide" style="display:block;"><img src="together_small.jpg"><p>بداية الحكاية.. حب الطفولة</p></div>
+        <div class="slide"><img src="her_big1.jpg"><p>أمل.. أجمل شيء في حياتي</p></div>
+        <div class="slide"><img src="me_big1.jpg"><p>إبراهيم.. اللي بقى أسير حبك</p></div>
+    </div>
+    
+    <button class="nav-btn" onclick="changeSlide(-1)">السابق</button>
+    <button class="nav-btn" onclick="changeSlide(1)">التالي</button>
+
+    <div class="heart-message">
+        <p>أمل يا حبيبة العمر، مهما عصفت بنا الأيام، تذكري أننا بدأنا كحب طفولة بريء، وأننا "روح واحدة في جسدين". أنا دائماً بانتظارك لنعود أفضل مما كنا.</p>
+        <a href="https://wa.me/201020526886?text=بحبك يا إبراهيم" class="whatsapp-btn">رسالة حب لإبراهيم ❤️</a>
+    </div>
+</div>
+
+<audio id="myAudio" loop><source src="my_song.mp3" type="audio/mpeg"></audio>
+
 <script>
     function checkPassword() {
-        const password = document.getElementById("password").value;
-        const audio = document.getElementById("myAudio");
-        
-        if (password === "1362021") {
+        if (document.getElementById("password").value === "1362021") {
             document.getElementById("auth-overlay").style.display = "none";
             document.getElementById("content").style.display = "block";
-            
-            // تشغيل الأغنية فوراً بعد ضغط الزرار
-            audio.play().catch(error => {
-                console.log("المتصفح منع التشغيل التلقائي، هننتظر أول ضغطة على الصفحة");
-                document.addEventListener('click', () => { audio.play(); }, { once: true });
+            document.getElementById("myAudio").play().catch(() => {
+                document.addEventListener('click', () => { document.getElementById("myAudio").play(); }, { once: true });
             });
-            
-            updateCounter();
-            setInterval(updateCounter, 1000);
-            startEffects();
-        } else { 
-            alert("الرمز غير صحيح"); 
-        }
+            updateCounter(); setInterval(updateCounter, 1000); startEffects();
+        } else { alert("الرمز غير صحيح"); }
     }
-    // باقي كود الـ startEffects و changeSlide و updateCounter زي ما هو..
+    function startEffects() {
+        setInterval(() => {
+            const el = document.createElement("div");
+            el.innerHTML = Math.random() > 0.5 ? "❤" : "🌸";
+            el.className = "element";
+            el.style.left = Math.random() * 100 + "vw";
+            el.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 10000);
+        }, 800);
+        const msgs = ["إلى شريكة عمري.. أمل ❤️", "كل سنة وأنتِ معي ✨", "أحلى أيام عمري معكِ 🌹"];
+        let i = 0; setInterval(() => { document.getElementById("dynamic-text").innerText = msgs[i]; i = (i + 1) % msgs.length; }, 4000);
+    }
+    let currentSlide = 0;
+    function changeSlide(n) {
+        let slides = document.getElementsByClassName("slide");
+        slides[currentSlide].style.display = "none";
+        currentSlide = (currentSlide + n + slides.length) % slides.length;
+        slides[currentSlide].style.display = "block";
+    }
+    function updateCounter() {
+        const start = new Date("2021-06-13T00:00:00"); const now = new Date();
+        const diff = now - start;
+        const y = Math.floor(diff / (31536000000));
+        const m = Math.floor((diff % 31536000000) / 2592000000);
+        const d = Math.floor((diff % 2592000000) / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        document.getElementById("date-counter").innerHTML = `عشنا سوا: ${y} سنة، ${m} شهر، ${d} يوم<br>${h} ساعة ودقائق وثوانٍ`;
+    }
 </script>
+</body>
+</html>
